@@ -36,23 +36,11 @@ public class ActivitiController {
 
         Applicant applicant = new Applicant("John Doe", "john@activiti.org", "12344");
         Map<String, Object> variables = new HashMap<String, Object>();
-//        variables.put("applicantName", "John Doe");
-//        variables.put("email", "john.doe@activiti.com");
-//        variables.put("phoneNumber", "123456789");
         variables.put("applicant", applicant);
         ProcessResponseDto processInstance = userTaskService.startProcess(processKey, variables);
 
-        // First,  'cuộc phỏng vấn qua điện thoại'  active
-        Task task = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getProcessInstanceId())
-                .taskCandidateGroup("dev-managers")
-                .singleResult();
-
-        // Hoàn thành cuộc phỏng vấn qua điện thoại thành công sẽ kích hoạt hai nhiệm vụ mới
-        Map<String, Object> taskVariables = new HashMap<String, Object>();
-        taskVariables.put("applicant", applicant);
-        taskVariables.put("telephoneInterviewOutcome", false);
-        taskService.complete(task.getId(), taskVariables);
+        userApi( processInstance.getProcessInstanceId(),false);
+        Map<String, Object> taskVariables;
 
         List<Task> tasks = taskService.createTaskQuery()
                 .processInstanceId(processInstance.getProcessInstanceId())
@@ -77,6 +65,19 @@ public class ActivitiController {
         // Verify process completed
 //        Assert.assertEquals(1, historyService.createHistoricProcessInstanceQuery().finished().count());
         return null;
+    }
+
+    private void userApi(String processInstanceId,boolean telephoneInterviewOutcome) {
+        Task task = taskService.createTaskQuery()
+                .processInstanceId(processInstanceId)
+                .taskCandidateGroup("dev-managers")
+                .singleResult();
+
+        Map<String, Object> taskVariables = new HashMap<String, Object>();
+        Applicant applicant = new Applicant("John Doe", "john@activiti.org", "12344");
+        taskVariables.put("applicant", applicant);
+        taskVariables.put("telephoneInterviewOutcome", telephoneInterviewOutcome);
+        taskService.complete(task.getId(), taskVariables);
     }
 
     @GetMapping("/tasks")

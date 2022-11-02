@@ -8,20 +8,7 @@
     <exclusiveGateway id="sid-47ECD3C6-CA48-40D8-B478-6C26A122FA28"/>
     <sequenceFlow id="sid-B468226B-DB2E-421E-B04B-5FF1622F3E78" sourceRef="sid-42BAE58A-8FFB-4B02-AAED-E0D8EA5A7E39" targetRef="sid-47ECD3C6-CA48-40D8-B478-6C26A122FA28"/>
     <endEvent id="sid-A4859521-98BA-44EA-A9B1-55445823CE0D"/>
-    <sequenceFlow id="sid-D536B119-9F6C-45B6-B1B6-8142AE70208A" sourceRef="sid-59C993BD-38A0-4DC3-97BC-F58FD94E38A9" targetRef="sid-A4859521-98BA-44EA-A9B1-55445823CE0D"/>
-    <serviceTask id="sid-59C993BD-38A0-4DC3-97BC-F58FD94E38A9" name="Send rejection email" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${applicant.email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Your application has been rejected]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:expression>Dear ${applicant.name}, We're sorry to inform you that your recent application has been rejected. We have stored your information in our data systems and will contact you if in the future a potential matching application is posted on our website. Regards, My Corp</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
+    <sequenceFlow id="sid-D536B119-9F6C-45B6-B1B6-8142AE70208A" sourceRef="sid-179270d0-bc01-4246-bb5b-04fe44597a38" targetRef="sid-A4859521-98BA-44EA-A9B1-55445823CE0D"/>
     <subProcess id="sid-304989D1-D3EC-4F89-A288-2238C7941973" name="subProcess">
       <startEvent id="sid-48CEC12C-2047-4B8B-94E9-371A379C3CF3"/>
       <parallelGateway id="sid-904B6A3F-4D05-408C-BF50-25194FBFE4CA"/>
@@ -42,7 +29,7 @@
     <sequenceFlow id="sid-366D79F8-23D7-4E3F-8F0F-3C29545C81FB" sourceRef="sid-9DFC483F-2C57-4378-AE25-30460BD3838F" targetRef="sid-42BAE58A-8FFB-4B02-AAED-E0D8EA5A7E39"/>
     <startEvent id="sid-E0DD2D8E-0672-4BE0-97A4-933DD8771EFF"/>
     <sequenceFlow id="sid-D4DD49AB-01E3-4A84-9B46-7CE0C414D71D" sourceRef="sid-E0DD2D8E-0672-4BE0-97A4-933DD8771EFF" targetRef="sid-9DFC483F-2C57-4378-AE25-30460BD3838F"/>
-    <sequenceFlow id="sid-F967A26E-3C8E-45AD-B791-C473491DA988" sourceRef="sid-47ECD3C6-CA48-40D8-B478-6C26A122FA28" targetRef="sid-59C993BD-38A0-4DC3-97BC-F58FD94E38A9">
+    <sequenceFlow id="sid-F967A26E-3C8E-45AD-B791-C473491DA988" sourceRef="sid-47ECD3C6-CA48-40D8-B478-6C26A122FA28" targetRef="sid-179270d0-bc01-4246-bb5b-04fe44597a38">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${telephoneInterviewOutcome == false}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-F659050F-BF12-43FD-BE60-F0E235B1A32B" sourceRef="sid-47ECD3C6-CA48-40D8-B478-6C26A122FA28" targetRef="sid-304989D1-D3EC-4F89-A288-2238C7941973">
@@ -76,6 +63,7 @@
     <sequenceFlow id="sid-59B08F72-9D7C-4CD5-A850-14E10328FD7B" sourceRef="sid-3D63E564-D35A-42E3-A81E-6D7DF325D118" targetRef="sid-F2ADA953-6FCF-42FA-B59E-45DAC6EACFA7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${techOk && financialOk}]]></conditionExpression>
     </sequenceFlow>
+    <serviceTask id="sid-179270d0-bc01-4246-bb5b-04fe44597a38" activiti:exclusive="false" name="Send rejection mail" activiti:expression="${resumeService.reject(execution)}"/>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_hireProcess">
     <bpmndi:BPMNPlane bpmnElement="hireProcess" id="BPMNPlane_hireProcess">
@@ -87,9 +75,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-A4859521-98BA-44EA-A9B1-55445823CE0D" id="BPMNShape_sid-A4859521-98BA-44EA-A9B1-55445823CE0D">
         <omgdc:Bounds height="28.0" width="28.0" x="690.0" y="56.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sid-59C993BD-38A0-4DC3-97BC-F58FD94E38A9" id="BPMNShape_sid-59C993BD-38A0-4DC3-97BC-F58FD94E38A9">
-        <omgdc:Bounds height="80.0" width="100.0" x="525.0" y="30.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-304989D1-D3EC-4F89-A288-2238C7941973" id="BPMNShape_sid-304989D1-D3EC-4F89-A288-2238C7941973">
         <omgdc:Bounds height="280.0" width="492.0" x="525.0" y="135.0"/>
@@ -164,7 +149,7 @@
         <omgdi:waypoint x="1180.0" y="145.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-D536B119-9F6C-45B6-B1B6-8142AE70208A" id="BPMNEdge_sid-D536B119-9F6C-45B6-B1B6-8142AE70208A">
-        <omgdi:waypoint x="625.0" y="70.0"/>
+        <omgdi:waypoint x="628.7413" y="70.0"/>
         <omgdi:waypoint x="690.0" y="70.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-366D79F8-23D7-4E3F-8F0F-3C29545C81FB" id="BPMNEdge_sid-366D79F8-23D7-4E3F-8F0F-3C29545C81FB">
@@ -201,7 +186,8 @@
       <bpmndi:BPMNEdge bpmnElement="sid-F967A26E-3C8E-45AD-B791-C473491DA988" id="BPMNEdge_sid-F967A26E-3C8E-45AD-B791-C473491DA988">
         <omgdi:waypoint x="485.5" y="205.5"/>
         <omgdi:waypoint x="485.5" y="70.0"/>
-        <omgdi:waypoint x="525.0" y="70.0"/>
+        <omgdi:waypoint x="505.00006" y="69.99999"/>
+        <omgdi:waypoint x="528.74115" y="70.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-73AC3A3C-D128-4664-BC6C-7AF08FEDC8CA" id="BPMNEdge_sid-73AC3A3C-D128-4664-BC6C-7AF08FEDC8CA">
         <omgdi:waypoint x="1017.0" y="275.3948635634029"/>
@@ -211,6 +197,9 @@
         <omgdi:waypoint x="420.0" y="225.2164502164502"/>
         <omgdi:waypoint x="465.4130434782609" y="225.41304347826087"/>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-1db58edf-60d8-4ca6-87da-082070796eac" bpmnElement="sid-179270d0-bc01-4246-bb5b-04fe44597a38">
+        <omgdc:Bounds x="528.7412" y="30.000008" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>
