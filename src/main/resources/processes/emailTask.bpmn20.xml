@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="emailTask" name="emailTask" isExecutable="true">
+    <startEvent id="sid-200c1cdb-7c7b-44e6-b4da-bd68e5248ca2"/>
+    <endEvent id="sid-c23c8d64-df6d-4bcc-ad7b-e5e0e1b48b01"/>
+    <serviceTask activiti:type="mail" id="sid-0dac5225-07ec-4435-9888-52df1ca1d166" name="Email task">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string>lamvv0901@gmail.com</activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string>17020846@vnu.edu.vn</activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string>Email task</activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string><![CDATA[First time Email task test ]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-3d8de62d-8b8a-4036-98e2-980c236b2ff4" sourceRef="sid-200c1cdb-7c7b-44e6-b4da-bd68e5248ca2" targetRef="sid-0dac5225-07ec-4435-9888-52df1ca1d166"/>
+    <sequenceFlow id="sid-7e8b056e-30a0-41f2-8674-54b82877059d" sourceRef="sid-0dac5225-07ec-4435-9888-52df1ca1d166" targetRef="sid-c23c8d64-df6d-4bcc-ad7b-e5e0e1b48b01"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_emailTask">
+    <bpmndi:BPMNPlane bpmnElement="emailTask" id="BPMNPlane_emailTask">
+      <bpmndi:BPMNShape id="shape-0b077850-9428-4bd5-b2a1-4fbf4b6e8222" bpmnElement="sid-200c1cdb-7c7b-44e6-b4da-bd68e5248ca2">
+        <omgdc:Bounds x="-120.0" y="-40.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-ac7f2948-e2f3-4c3b-82f3-48677c8559cf" bpmnElement="sid-c23c8d64-df6d-4bcc-ad7b-e5e0e1b48b01">
+        <omgdc:Bounds x="110.0" y="-40.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-a175caa8-e29b-4b76-9aa1-3685c7f90518" bpmnElement="sid-0dac5225-07ec-4435-9888-52df1ca1d166">
+        <omgdc:Bounds x="-45.0" y="-65.5" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-e0bc5172-915f-411f-be80-b8e07b59e0ac" bpmnElement="sid-3d8de62d-8b8a-4036-98e2-980c236b2ff4">
+        <omgdi:waypoint x="-90.0" y="-25.0"/>
+        <omgdi:waypoint x="-45.0" y="-25.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-47883feb-583f-4cd7-9b66-c971b7292310" bpmnElement="sid-7e8b056e-30a0-41f2-8674-54b82877059d">
+        <omgdi:waypoint x="55.0" y="-25.5"/>
+        <omgdi:waypoint x="110.0" y="-25.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+	typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+	targetNamespace="Examples">
+	<process id="java-delegate-service-task-process" name="Activiti Service Task using Java Delegates"
+		isExecutable="true">
+		<startEvent id="startevent1" name="Start"></startEvent>
+		<serviceTask id="javadeletegateservicetask" name="Java Delegate Service Task"
+			activiti:class="com.lptech.lp_projectdemo.service.JavaDelegateService"></serviceTask>
+
+		<sequenceFlow id="flow1" sourceRef="startevent1"
+			targetRef="javadeletegateservicetask"></sequenceFlow>
+		<endEvent id="endevent1" name="End"></endEvent>
+		<sequenceFlow id="flow2" sourceRef="javadeletegateservicetask"
+			targetRef="endevent1"></sequenceFlow>
+	</process>
+</definitions>
